@@ -1,0 +1,28 @@
+name: 'Mongoose OS create bin file'
+description: 'Action to combine all parts of a Mongoose OS firmware ZIP-file into a single binary'
+author: 'yaourdt'
+inputs:
+  zipfile:
+    description: 'Path to the firmware zip file'
+    required: false
+    default: './build/fw.zip'
+  output:
+    description: 'Name of the output file'
+    required: false
+    default: 'firmware.bin'
+  args:
+    description: 'Further arguments (eg. -f, -s 2048, ...)'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '-i'
+    - ${{ inputs.zipfile }}
+    - '-o'
+    - ${{ inputs.output }}
+    - ${{ inputs.args }}
+branding:
+  icon: 'link'
+  color: 'green'
